@@ -86,7 +86,7 @@ if __name__ == "__main__":
     parser.add_argument("--json_file", type=str, default="./datasets/hotpot_test_fullwiki_v1.json", help="Path to the HotPotQA JSON file")
     parser.add_argument("--llm_name", type=str, default="Qwen/Qwen-VL-Chat", help="Name of the pretrained model")
     parser.add_argument("--window_size", type=int, default=1024, help="Window size for chunking text")
-    parser.add_argument("--query_based", type=bool, dafult=True)
-    
+    parser.add_argument("--query_based", type=bool, default=True)
+
     args = parser.parse_args()
-    main(args)
+    main()

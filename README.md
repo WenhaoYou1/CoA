@@ -21,3 +21,23 @@ The [paper](https://openreview.net/pdf?id=LuCLf4BJsr) uses commercial products s
 │   └── manager_agent.py
 └── README.md
 ```
+
+### Instruction
+
+1. Download sample data.
+
+   ```bash
+    cd datasets
+    wget http://curtis.ml.cmu.edu/datasets/hotpot/hotpot_test_fullwiki_v1.json
+    cd ..
+   ```
+
+2. Run the main section.
+
+   ```bash
+   python3 main.py \
+       --json_file "./datasets/hotpot_test_fullwiki_v1.json" \
+       --llm_name "Qwen/Qwen-VL-Chat" \
+       --window_size 1024 \
+       --query_based True
+   ```

@@ -1,4 +1,4 @@
-## CoA
+## Chain of Agents (CoA)
 
 Implementation of [Chain of Agents](https://openreview.net/pdf?id=LuCLf4BJsr).
 
@@ -21,6 +21,10 @@ The [paper](https://openreview.net/pdf?id=LuCLf4BJsr) uses commercial products s
 │   └── manager_agent.py
 └── README.md
 ```
+
+### Dependencies
+
+Please install all the dependencies from requirements.txt and check the related versions.
 
 ### Instruction
 

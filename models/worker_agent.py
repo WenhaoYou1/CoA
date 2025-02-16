@@ -22,9 +22,12 @@ def worker_agent(worker_id: int, prev_communication_unit: str, current_chunk: st
             "and generate a summary for the whole text. Thus, your generated summary should be "
             "relatively long.\n"
         )
-
-    instruction_iw = ""  #TODO: replace with correct prompts    
-    prompt = instruction_iw + "\n" + prompt
+    INSTRUCTION_IW = (
+    "You are a Worker agent. You read a chunk of the text and produce a summary. "
+    "Then pass it to the next agent."
+    )
+    #TODO: replace with correct prompts    
+    prompt = INSTRUCTION_IW + "\n" + prompt
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     generated_outputs = model.generate(
         inputs["input_ids"], 

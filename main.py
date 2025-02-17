@@ -9,12 +9,6 @@ from models.manager_agent import ManagerAgent
 from models.worker_agent import WorkerAgent
 
 
-INSTRUCTION_IW = (
-    "You are a Worker agent. You read a chunk of the text and produce a summary. "
-    "Then pass it to the next agent."
-)
-
-
 def chain_of_agents_pipeline(
     source_text: str,
     query: str,
@@ -39,13 +33,17 @@ def chain_of_agents_pipeline(
     # Instantiate worker and manager agents
     worker = WorkerAgent(model=model, tokenizer=tokenizer)
     manager = ManagerAgent(model=model, tokenizer=tokenizer)
-
+    # Set the instructions for worker agents
+    instruction = (
+    "You are a Worker agent. You read a chunk of the text and produce a summary. "
+    "Then pass it to the next agent."
+    )
     # Chunk the input text using correct parameter names.
     chunks = utils.chunk_text_by_sentence(
         text=source_text,
         query=query,
         k=k,
-        instruction=INSTRUCTION_IW,
+        instruction=instruction,
         tokenizer=tokenizer
     )
 

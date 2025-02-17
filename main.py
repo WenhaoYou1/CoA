@@ -2,7 +2,7 @@ import torch
 import json
 import argparse
 from models.manager_agent import manager_agent
-from models.worker_agent import worker_agent
+from models.worker_agent import WorkerAgent
 from utils import chunk_text_by_sentence
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
@@ -10,8 +10,8 @@ INSTRUCTION_IW = (
     "You are a Worker agent. You read a chunk of the text and produce a summary. "
     "Then pass it to the next agent."
 )
-
 def chain_of_agents_pipeline(source_text: str, query: str, k: int, query_based: bool, model, tokenizer) -> str:
+    worker = WorkerAgent(model=model, tokenizer=tokenizer)
     chunks = chunk_text_by_sentence(
         x=source_text,
         query=query,
@@ -23,19 +23,11 @@ def chain_of_agents_pipeline(source_text: str, query: str, k: int, query_based: 
     # Stage 1: Worker Agents
     cu_prev = "" 
     for i, chunk_text in enumerate(chunks, start=1):
-        # print(f"Worker {i}")
-        cu_curr = worker_agent(
-            worker_id=i,
-            prev_communication_unit=cu_prev,
+        cu_curr = worker.generate_summary(
+            prev_summary=cu_prev,
             current_chunk=chunk_text,
-            query=query,
-            query_based=query_based,
-            model=model,
-            tokenizer=tokenizer
+            query=query
         )
-        # print(f"-游chunk: {chunk_text}")
-        # print(f"-文query: {query}")
-        # print(f"-灏answer: {cu_curr}")
         cu_prev = cu_curr  
 
     # Stage 2: Manager
